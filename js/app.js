@@ -17,7 +17,7 @@ function calculatePercent(month) {
 }
 
 function calculateInterest(amount, period) {
-    const percent = calculatePercent(period)
+    const percent = calculatePercent(period);
 
     const countMonth = 1; //количество месяцев начисления процентов по привлеченному вкладу
     const numberPeriods = period;//— число периодов начисления процентов.
@@ -38,37 +38,39 @@ function handleSubmit(evt) {
     totalEl.textContent = '';
     profitEl.textContent = '';
     percentEl.textContent = '';
+    amountErrorEl.textContent = '';
+    periodErrorEl.textContent = '';
 
     const amount = Number(amountInputEl.value);
     if (Number.isNaN(amount)) {
-        //TODO: show errors
+        amountErrorEl.textContent = `Неверное значение. Введите число, например: 15000`;
         return;
     }
     if (amount < minAmount) {
-        //TODO: show errors
+        amountErrorEl.textContent = `Неверное значение. Минимальная сумма: ${minAmount} ₽`;
         return;
     }
     if (amount > maxAmount) {
-        //TODO: show errors
+        amountErrorEl.textContent = `Неверное значение. Максимальная сумма: ${maxAmount} ₽`;
         return;
     }
     const period = Number(periodInputEl.value);
     if (Number.isNaN(period)) {
-        //TODO: show errors
+        periodErrorEl.textContent = `Неверное значение. Введите число месяцев, например: 3`;
         return;
     }
     if (period < minPeriod) {
-        //TODO: show errors
+        periodErrorEl.textContent = `Неверное значение. Минимальный период: ${minPeriod} месяца`;
         return;
     }
     if (period > maxPeriod) {
-        //TODO: show errors
+        periodErrorEl.textContent = `Неверное значение. Максимальный период: ${maxPeriod} месяцев`;
         return;
     }
 
     const result = calculateInterest(amount, period);
-    totalEl.textContent =  `${Number(result.totalSum).toFixed(0)} `;
-    profitEl.textContent = `${Number(result.profit).toFixed(0)} `;
+    totalEl.textContent = `${Number(result.totalSum).toFixed(0)} `;
+    profitEl.textContent =`${Number(result.profit).toFixed(0)} `;
     percentEl.textContent = `${result.percent} `;
 }
 
@@ -84,4 +86,6 @@ const periodInputEl = document.getElementById('period-input');
 const totalEl = document.getElementById('total');
 const profitEl = document.getElementById('profit');
 const percentEl = document.getElementById('percent');
+const amountErrorEl = document.getElementById('amount-error');
+const periodErrorEl = document.getElementById('period-error');
 
